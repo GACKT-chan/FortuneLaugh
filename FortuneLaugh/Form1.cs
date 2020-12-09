@@ -41,28 +41,31 @@ namespace FortuneLaugh
 
         private void PartsMouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            this.CursorPointOnForm = this.PointToClient(Cursor.Position);
-            this.DifferenceXFromItem = this.CursorPointOnForm.X - LeftEye.Left;
-            this.DifferenceYFromItem = this.CursorPointOnForm.Y - LeftEye.Top;
-            LeftEye.Left = Cursor.Position.X + this.DifferenceXFromItem;
-            LeftEye.Top = Cursor.Position.Y + this.DifferenceYFromItem;
+            //this.DifferenceXFromItem = this.CursorPointOnForm.X - LeftEye.Left;
+            //this.DifferenceYFromItem = this.CursorPointOnForm.Y - LeftEye.Top;
+            //LeftEye.Left = Cursor.Position.X + this.DifferenceXFromItem;
+            //LeftEye.Top = Cursor.Position.Y + this.DifferenceYFromItem;
 
-            if(sender is Picture)
-
-            if (e.Button == MouseButtons.Left)
+            if (sender is Picture picture && e.Button == MouseButtons.Left)
             {
+                this.CursorPointOnForm = this.PointToClient(Cursor.Position);
+                this.DifferenceXFromItem = this.CursorPointOnForm.X - picture.Left;
+                this.DifferenceYFromItem = this.CursorPointOnForm.Y - picture.Top;
+                picture.PictureMouseDown(Cursor.Position.X + this.DifferenceXFromItem, Cursor.Position.Y + this.DifferenceYFromItem);
+                System.Windows.Forms.Cursor.Hide();
                 this.IsDragging = true;
             }
         }
 
         private void PartsMouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left && IsDragging)
+            if (sender is Picture picture && e.Button == MouseButtons.Left && IsDragging)
             {
                 this.CursorPointOnForm = this.PointToClient(Cursor.Position);
-                LeftEyeLocation.Text = "X = " + LeftEye.Top + " Y = " + this.CursorPointOnForm.Y;
-                LeftEye.Left = CursorPointOnForm.X - DifferenceXFromItem;
-                LeftEye.Top = CursorPointOnForm.Y - DifferenceYFromItem;
+                //LeftEyeLocation.Text = "X = " + LeftEye.Top + " Y = " + this.CursorPointOnForm.Y;
+                //LeftEye.Left = CursorPointOnForm.X - DifferenceXFromItem;
+                //LeftEye.Top = CursorPointOnForm.Y - DifferenceYFromItem;
+                picture.PictureMouseMove(CursorPointOnForm.X - DifferenceXFromItem, CursorPointOnForm.Y - DifferenceYFromItem, this.Size);
             }
         }
 
@@ -70,8 +73,19 @@ namespace FortuneLaugh
         {
             if(e.Button == MouseButtons.Left)
             {
+                System.Windows.Forms.Cursor.Show();
                 this.IsDragging = false;
             }
+        }
+
+        private void BaseFaceMouseEnter(object sender, EventArgs e)
+        {
+            System.Windows.Forms.Cursor.Hide();
+        }
+        private void BaseFaceMouseLeave(object sender, EventArgs e)
+        {
+
+            System.Windows.Forms.Cursor.Show();
         }
 
         private void YLocation_TextChanged(object sender, EventArgs e)
