@@ -17,8 +17,6 @@ namespace FortuneLaugh
         private int DifferenceYFromItem;
         private Point CursorPointOnForm;
 
-        private Picture LeftEyePic, RightEyePic, NosePic, MousePic;
-
         public Form1()
         {
             InitializeComponent();
@@ -26,10 +24,17 @@ namespace FortuneLaugh
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            LeftEyePic = new Picture(LeftEyeLocation);
-            RightEyePic = new Picture(RightEyeLocation);
-            NosePic = new Picture(NoseLocation);
-            MousePic = new Picture(MouseLocation);
+            LeftEye.SetTextBox(LeftEyeLocation);
+            LeftEye.SetOriginPic();
+
+            RightEye.SetTextBox(RightEyeLocation);
+            RightEye.SetOriginPic();
+
+            Nose.SetTextBox(NoseLocation);
+            Nose.SetOriginPic();
+
+            Mouse.SetTextBox(MouseLocation);
+            Nose.SetOriginPic();
 
         }
 
@@ -41,18 +46,12 @@ namespace FortuneLaugh
 
         private void PartsMouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            //this.DifferenceXFromItem = this.CursorPointOnForm.X - LeftEye.Left;
-            //this.DifferenceYFromItem = this.CursorPointOnForm.Y - LeftEye.Top;
-            //LeftEye.Left = Cursor.Position.X + this.DifferenceXFromItem;
-            //LeftEye.Top = Cursor.Position.Y + this.DifferenceYFromItem;
-
             if (sender is Picture picture && e.Button == MouseButtons.Left)
             {
                 this.CursorPointOnForm = this.PointToClient(Cursor.Position);
                 this.DifferenceXFromItem = this.CursorPointOnForm.X - picture.Left;
                 this.DifferenceYFromItem = this.CursorPointOnForm.Y - picture.Top;
                 picture.PictureMouseDown(Cursor.Position.X + this.DifferenceXFromItem, Cursor.Position.Y + this.DifferenceYFromItem);
-                System.Windows.Forms.Cursor.Hide();
                 this.IsDragging = true;
             }
         }
@@ -62,10 +61,7 @@ namespace FortuneLaugh
             if (sender is Picture picture && e.Button == MouseButtons.Left && IsDragging)
             {
                 this.CursorPointOnForm = this.PointToClient(Cursor.Position);
-                //LeftEyeLocation.Text = "X = " + LeftEye.Top + " Y = " + this.CursorPointOnForm.Y;
-                //LeftEye.Left = CursorPointOnForm.X - DifferenceXFromItem;
-                //LeftEye.Top = CursorPointOnForm.Y - DifferenceYFromItem;
-                picture.PictureMouseMove(CursorPointOnForm.X - DifferenceXFromItem, CursorPointOnForm.Y - DifferenceYFromItem, this.Size);
+                picture.PictureMouseMove(CursorPointOnForm.X - DifferenceXFromItem, CursorPointOnForm.Y - DifferenceYFromItem, this.ClientSize);
             }
         }
 
@@ -73,7 +69,6 @@ namespace FortuneLaugh
         {
             if(e.Button == MouseButtons.Left)
             {
-                System.Windows.Forms.Cursor.Show();
                 this.IsDragging = false;
             }
         }
@@ -88,9 +83,14 @@ namespace FortuneLaugh
             System.Windows.Forms.Cursor.Show();
         }
 
-        private void YLocation_TextChanged(object sender, EventArgs e)
+        private void PartsMouseEnter(object sender, EventArgs e)
+        {
+            System.Windows.Forms.Cursor.Hide();
+        }
+        private void PartsMouseLeave(object sender, EventArgs e)
         {
 
+            System.Windows.Forms.Cursor.Show();
         }
     }
 }

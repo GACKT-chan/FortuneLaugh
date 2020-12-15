@@ -34,14 +34,13 @@
             this.NoseLocation = new System.Windows.Forms.TextBox();
             this.MouseLocation = new System.Windows.Forms.TextBox();
             this.baseFace = new System.Windows.Forms.PictureBox();
-
-            this.LeftEye = new Picture(LeftEyeLocation);
-            this.RightEye = new Picture(RightEyeLocation);
-            this.Nose = new Picture(NoseLocation);
-            this.Mouse = new Picture(MouseLocation);
+            this.RightEye = new FortuneLaugh.Picture();
+            this.LeftEye = new FortuneLaugh.Picture();
+            this.Nose = new FortuneLaugh.Picture();
+            this.Mouse = new FortuneLaugh.Picture();
             ((System.ComponentModel.ISupportInitialize)(this.baseFace)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.LeftEye)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RightEye)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LeftEye)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Nose)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Mouse)).BeginInit();
             this.SuspendLayout();
@@ -63,7 +62,6 @@
             this.LeftEyeLocation.ReadOnly = true;
             this.LeftEyeLocation.Size = new System.Drawing.Size(310, 47);
             this.LeftEyeLocation.TabIndex = 8;
-            this.LeftEyeLocation.TextChanged += new System.EventHandler(this.YLocation_TextChanged);
             // 
             // RightEyeLocation
             // 
@@ -104,21 +102,9 @@
             this.baseFace.MouseEnter += new System.EventHandler(this.BaseFaceMouseEnter);
             this.baseFace.MouseLeave += new System.EventHandler(this.BaseFaceMouseLeave);
             // 
-            // LeftEye
-            // 
-            this.LeftEye.Image = global::FortuneLaugh.Properties.Resources.left1;
-            this.LeftEye.Location = new System.Drawing.Point(379, 30);
-            this.LeftEye.Name = "LeftEye";
-            this.LeftEye.Size = new System.Drawing.Size(100, 50);
-            this.LeftEye.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.LeftEye.TabIndex = 6;
-            this.LeftEye.TabStop = false;
-            this.LeftEye.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PartsMouseDown);
-            this.LeftEye.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PartsMouseMove);
-            this.LeftEye.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PartsMouseUp);
-            // 
             // RightEye
             // 
+            this.RightEye.BackColor = System.Drawing.Color.Transparent;
             this.RightEye.Image = global::FortuneLaugh.Properties.Resources.right;
             this.RightEye.Location = new System.Drawing.Point(363, 102);
             this.RightEye.Name = "RightEye";
@@ -127,11 +113,30 @@
             this.RightEye.TabIndex = 9;
             this.RightEye.TabStop = false;
             this.RightEye.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PartsMouseDown);
+            this.RightEye.MouseEnter += new System.EventHandler(this.PartsMouseEnter);
+            this.RightEye.MouseLeave += new System.EventHandler(this.PartsMouseLeave);
             this.RightEye.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PartsMouseMove);
             this.RightEye.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PartsMouseUp);
             // 
+            // LeftEye
+            // 
+            this.LeftEye.BackColor = System.Drawing.Color.Transparent;
+            this.LeftEye.Image = global::FortuneLaugh.Properties.Resources.left1;
+            this.LeftEye.Location = new System.Drawing.Point(379, 30);
+            this.LeftEye.Name = "LeftEye";
+            this.LeftEye.Size = new System.Drawing.Size(100, 50);
+            this.LeftEye.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.LeftEye.TabIndex = 6;
+            this.LeftEye.TabStop = false;
+            this.LeftEye.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PartsMouseDown);
+            this.LeftEye.MouseEnter += new System.EventHandler(this.PartsMouseEnter);
+            this.LeftEye.MouseLeave += new System.EventHandler(this.PartsMouseLeave);
+            this.LeftEye.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PartsMouseMove);
+            this.LeftEye.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PartsMouseUp);
+            // 
             // Nose
             // 
+            this.Nose.BackColor = System.Drawing.Color.Transparent;
             this.Nose.Image = global::FortuneLaugh.Properties.Resources.nose;
             this.Nose.Location = new System.Drawing.Point(398, 158);
             this.Nose.Name = "Nose";
@@ -140,11 +145,14 @@
             this.Nose.TabIndex = 11;
             this.Nose.TabStop = false;
             this.Nose.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PartsMouseDown);
+            this.Nose.MouseEnter += new System.EventHandler(this.PartsMouseEnter);
+            this.Nose.MouseLeave += new System.EventHandler(this.PartsMouseLeave);
             this.Nose.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PartsMouseMove);
             this.Nose.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PartsMouseUp);
             // 
             // Mouse
             // 
+            this.Mouse.BackColor = System.Drawing.Color.Transparent;
             this.Mouse.Image = global::FortuneLaugh.Properties.Resources.mouse1;
             this.Mouse.Location = new System.Drawing.Point(328, 224);
             this.Mouse.Name = "Mouse";
@@ -153,6 +161,8 @@
             this.Mouse.TabIndex = 10;
             this.Mouse.TabStop = false;
             this.Mouse.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PartsMouseDown);
+            this.Mouse.MouseEnter += new System.EventHandler(this.PartsMouseEnter);
+            this.Mouse.MouseLeave += new System.EventHandler(this.PartsMouseLeave);
             this.Mouse.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PartsMouseMove);
             this.Mouse.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PartsMouseUp);
             // 
@@ -176,8 +186,8 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MouseMoveOnForm);
             ((System.ComponentModel.ISupportInitialize)(this.baseFace)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.LeftEye)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RightEye)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LeftEye)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Nose)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Mouse)).EndInit();
             this.ResumeLayout(false);
