@@ -16,7 +16,7 @@ namespace FortuneLaugh
         private int DifferenceXFromItem;
         private int DifferenceYFromItem;
         private Point CursorPointOnForm;
-
+        private Game game;
         public Form1()
         {
             InitializeComponent();
@@ -24,24 +24,25 @@ namespace FortuneLaugh
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            LeftEye.SetTextBox(LeftEyeLocation);
+            LeftEye.SetTextBox(LeftEyeLocation,"左目");
             LeftEye.SetOriginPic();
 
-            RightEye.SetTextBox(RightEyeLocation);
+            RightEye.SetTextBox(RightEyeLocation,"右目");
             RightEye.SetOriginPic();
 
-            Nose.SetTextBox(NoseLocation);
+            Nose.SetTextBox(NoseLocation,"鼻");
             Nose.SetOriginPic();
 
-            Mouse.SetTextBox(MouseLocation);
+            Mouse.SetTextBox(MouseLocation,"口");
             Nose.SetOriginPic();
+            game = new Game();
 
         }
 
         private void MouseMoveOnForm(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             this.CursorPointOnForm = this.PointToClient(Cursor.Position);
-            CursorLocation.Text = "X = " + this.CursorPointOnForm.X + " Y = " + this.CursorPointOnForm.Y;
+            CursorLocation.Text = "\tX = " + this.CursorPointOnForm.X + " Y = " + this.CursorPointOnForm.Y;
         }
 
         private void PartsMouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
@@ -73,6 +74,18 @@ namespace FortuneLaugh
             }
         }
 
+        private void ScoringClicked(object sender, EventArgs e)
+        {
+            VisualizeFace();
+            double score = game.Scoring(LeftEye.Location, RightEye.Location, Nose.Location, Mouse.Location);
+            scoreBox.Text = score.ToString() + "点";
+        }
+
+        private void VisualizeFace()
+        {
+
+        }
+
         private void BaseFaceMouseEnter(object sender, EventArgs e)
         {
             System.Windows.Forms.Cursor.Hide();
@@ -91,6 +104,22 @@ namespace FortuneLaugh
         {
 
             System.Windows.Forms.Cursor.Show();
+        }
+
+        private void RelativeCheckedChanged(object sender, EventArgs e)
+        {
+            if (relative.Checked)
+            {
+                game.SetEvaluation(false);
+            }
+        }
+
+        private void AbsoluteCheckedChanged(object sender, EventArgs e)
+        {
+            if (absolute.Checked)
+            {
+                game.SetEvaluation(true);
+            }
         }
     }
 }

@@ -13,6 +13,7 @@ namespace FortuneLaugh
         private TextBox textBox;
         private Bitmap bitmap;
         private Bitmap originPic;
+        private string name;
       
         public Picture(): base()
         {
@@ -28,7 +29,7 @@ namespace FortuneLaugh
         {
             this.Left = x;
             this.Top = y;
-            this.textBox.Text = "X = " + x + " Y = " + y;
+            this.textBox.Text = this.name + "\t:X = " + x + " Y = " + y;
             this.bitmap = new Bitmap(this.Width, this.Height);
             this.bitmap.MakeTransparent();
             this.Image = this.bitmap;
@@ -44,21 +45,23 @@ namespace FortuneLaugh
             {
                 this.Top = y;
             }
-            this.textBox.Text = "X = " + x + " Y = " + y;
+            this.textBox.Text = this.name + "\t:X = " + x + " Y = " + y;
         }
 
-        public void PictureMouseUp()
-        {
-            this.Image = this.originPic;
-        }
-
-        public void SetTextBox(TextBox t)
+        public void SetTextBox(TextBox t,string name)
         {
             this.textBox = t;
+            this.name = name;
         }
         public void SetOriginPic()
         {
             this.originPic = new Bitmap(this.Image);
+        }
+
+        public void VisualizePicture()
+        {
+            this.BringToFront();
+            this.Image = this.originPic;
         }
 
     }
